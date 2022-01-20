@@ -1,4 +1,4 @@
-package com.example
+package com.example.myapplica
 
 
 data class Movie(

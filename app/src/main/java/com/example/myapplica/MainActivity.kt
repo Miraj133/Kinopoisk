@@ -2,30 +2,36 @@ package com.example.myapplica
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import okhttp3.*
-import java.io.IOException
+import com.example.myapplica.Common.Common
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
-    val client = OkHttpClient()
+    lateinit var mService: RetrofitServices
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        run("https://kinopoiskapiunofficial.tech")
-        Log.d(TAG, "rere ")
+        mService = Common.retrofitService
+        getAllMovieList()
+
     }
 
-    fun run(url: String) {
-        val request = Request.Builder()
-            .url(url)
-            .build()
-        client.newCall(request).enqueue(object: Callback{
-            override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) = println(response.body()?.string())
+    private fun getAllMovieList() {
+        mService.getMovieList().enqueue(object : Callback<MutableList<Movie>> {
+            override fun onFailure(call: Call<MutableList<Movie>>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<MutableList<Movie>>,
+                response: Response<MutableList<Movie>>
+            ) {
+                TODO("Not yet implemented")
+            }
         })
-    }
 
-    companion object {
-        const val TAG = "test666"
+
     }
 }
