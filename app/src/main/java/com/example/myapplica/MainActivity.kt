@@ -2,6 +2,7 @@ package com.example.myapplica
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.myapplica.Common.Common
 import retrofit2.Call
 import retrofit2.Callback
@@ -9,29 +10,28 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mService: RetrofitServices
+
+    companion object{
+        const val TAG = "test666"
+    }
+    lateinit var mService: ApiInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mService = Common.retrofitService
         getAllMovieList()
-
     }
 
     private fun getAllMovieList() {
-        mService.getMovieList().enqueue(object : Callback<MutableList<Movie>> {
-            override fun onFailure(call: Call<MutableList<Movie>>, t: Throwable) {
-
+        mService.getMovieList().enqueue(object : Callback<MutableList<ResponseData>> {
+            override fun onFailure(call: Call<MutableList<ResponseData>>, t: Throwable) {
             }
-
             override fun onResponse(
-                call: Call<MutableList<Movie>>,
-                response: Response<MutableList<Movie>>
+                call: Call<MutableList<ResponseData>>,
+                response: Response<MutableList<ResponseData>>
             ) {
-                TODO("Not yet implemented")
+                Log.d(TAG, "onResponse: ")
             }
         })
-
-
     }
 }
