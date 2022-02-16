@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAllMovieList() {
-        mService.getMovieList().enqueue(object : Callback<MutableList<ResponseData>> {
-            override fun onFailure(call: Call<MutableList<ResponseData>>, t: Throwable) {
+        mService.getMovieList().enqueue(object : Callback<ResponseData> {
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 Log.d(TAG, "onFailure: ")
             }
 
             override fun onResponse(
-                call: Call<MutableList<ResponseData>>,
-                response: Response<MutableList<ResponseData>>
+                call: Call<ResponseData>,
+                response: Response<ResponseData>
             ) {
                 Log.d(TAG, "onResponse: ")
             }

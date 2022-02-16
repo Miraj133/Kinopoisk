@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface ApiInterface {
     @GET("api/character")
-    fun getMovieList(): Call<MutableList<ResponseData>>
+    fun getMovieList(): Call<ResponseData>
 }
