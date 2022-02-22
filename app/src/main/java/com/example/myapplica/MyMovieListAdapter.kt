@@ -1,32 +1,33 @@
 package com.example.myapplica
 
 import android.content.Context
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplica.databinding.ItemMovieBinding
+import com.squareup.picasso.Picasso
+
 
 class MyMovieListAdapter(
     private val context: Context,
-    private val movieList: MutableList<ResponseData>
-) : RecyclerView.Adapter<MyMovieListAdapter.MyViewHolder>() {
-
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var binding: ItemMovieBinding
-        fun bind(listItem: ResponseData) {
-           binding.ivImageMovie
-        }
-    }
+    private val movieList: List<Result>//уточнить
+) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        TODO("Not yet implemented")
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val listItem = movieList[position]
+        holder.bind(listItem)
+
+        Picasso.with(context)
+            .load(movieList[position].image).into(holder.binding.ivImageMovie)
+        holder.binding.tvName.text = movieList[position].name
+        holder.binding.tvStatus.text = movieList[position].status
+        holder.binding.tvSpecies.text = movieList[position].species
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = movieList.size
 }
